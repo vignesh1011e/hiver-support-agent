@@ -22,6 +22,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create results directory
+        run: |
+          mkdir -p results
+
+      - name: Build retrieval index
+        run: |
+          python src/build_index.py \
+            --input data/amazon_cases.csv \
+            --out data/retrieval_index.joblib
+
       - name: Run intent evaluation
         run: |
           python src/evaluate_intent.py \
